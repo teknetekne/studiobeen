@@ -16,7 +16,6 @@ overflow-x: hidden;
 
 
 header {
-    padding: 20px;
     margin-top: 10px;
     background-color: white;
     color: white;
@@ -30,6 +29,8 @@ nav {
     justify-content: space-between;
     display: flex;
     align-items: center;
+    padding: 20px;
+    padding-bottom: 0;
 }
 
 .desktop-nav ul {
@@ -74,7 +75,7 @@ a {
 
 
 #hero {
-    height: 90vh;
+    height: 91.5vh;
 }
 
 .hero-wrapper {
@@ -91,13 +92,12 @@ a {
 }
 
 #hero h1 {
-    font-size : clamp(3em, 10vw, 5em);
+    font-size : clamp(3.8em, 10vw, 5em);
     line-height: 0.9;
 }
 
 #hero p {
     padding-top: 10px;
-    font-size: clamp(.9em, 2vw, 1em);
 }
 
 .cta {
@@ -109,11 +109,27 @@ a {
     transition: all .2s ease-in;
     font-size: clamp(.9em, 2vw, 1em);
     min-width: max-content;
+    position: relative;
+    transition: padding-right 0.3s ease;
+}
 
+.cta::after {
+    content: '→';
+    position: absolute;
+    opacity: 0;
+    top: 50%;
+    right: -20px; /* Adjust distance from button */
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease, right 0.3s ease; /* Separate transitions */
 }
 
 .cta:hover {
-    border-radius: 20px;
+    padding-right: 34px; /* Increase padding on hover */
+}
+
+.cta:hover::after {
+    opacity: 1;
+    right: 12px; /* Adjust position of arrow */
 }
 
 .gradient {
@@ -181,13 +197,14 @@ footer {
         display:block;
         width: 30px;
         cursor:  pointer;
-        height: 35px;
+        height: 36px;
         appearance: none;
         background:none;
         outline: none;
         border: none;
         z-index: 99;
         margin-left: auto;
+        padding-bottom: 2px;
     }
     
     .hamburger .bar, .hamburger::after, .hamburger::before{
@@ -507,6 +524,7 @@ footer {
     color: white;
 }
 
+
 .contact-wrapper {
     max-width: 1200px;
     padding: 20px;
@@ -521,10 +539,11 @@ footer {
     margin: 0 auto;
     max-width: 1200px;
     padding-bottom: 0;
+    padding-top: 40px;
 }
 
 .contact-header h1 {
-    font-size:clamp(1.3em, 5vw, 2.5em);
+font-size: 2.5em;
 }
 
 .contact-text {
@@ -541,6 +560,7 @@ footer {
     flex-direction: row;
     min-width: 300px;
     margin: auto;
+
 }
 
 .thin-text {
@@ -591,9 +611,9 @@ footer {
 
 .contact-form button {
     padding: 10px 20px;
-    background-color: white;
-    color: #1F4788;
-    border: 1px solid #1F4788;
+    background-color: #1F4788;
+    color: #ffffff;
+    border: 1px solid white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -602,7 +622,7 @@ footer {
 }
 
 .contact-form button:hover {
-    background-color: #1F4788;
+    background-color: #193f7c;
     color: white;
     border: 1px solid white;
 }
