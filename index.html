@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  const servicesText = gsap.utils.toArray('.services-text h1, .services-text h2, .services-text h3, .services-text h4, .service-left');
+  const servicesText = gsap.utils.toArray('.services-text h1, .services-text h2, .services-text h3, .service-left');
 
   servicesText.forEach((element, index) => {
     gsap.fromTo(element,
@@ -300,28 +300,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const servicesText = gsap.utils.toArray('.services-text h4');
+
+  servicesText.forEach((element, index) => {
+    gsap.fromTo(element,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 70%',
+          end: 'bottom 50%',
+          scrub: true
+        }
+      }
+    );
+  });
+});
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  let mybutton = document.getElementById("btn-back-to-top");
+    let mybutton = document.getElementById("btn-back-to-top");
 
-  window.onscroll = function () {
-    scrollFunction();
-  };
+    window.onscroll = function () {
+        scrollFunction();
+    };
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      mybutton.style.display = "block";
-    } else {
-      mybutton.style.display = "none";
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
     }
-  }
 
-  mybutton.addEventListener("click", backToTop);
+    mybutton.addEventListener("click", backToTop);
 
-  function backToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+    function backToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 });
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -333,6 +358,65 @@ document.addEventListener("DOMContentLoaded", function(event) {
         };
     });
 });
+
+if (typeof sessionStorage !== 'undefined') {
+    var scrollPosition = sessionStorage.getItem('scrollPosition');
+    
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    window.addEventListener('load', function() {
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            sessionStorage.removeItem('scrollPosition');
+        }
+    });
+}
+
+
+if (typeof sessionStorage !== 'undefined') {
+    sessionStorage.setItem('cleanUrl', removeHash(window.location.href));
+    
+    function removeHash(url) {
+        return url.split('#')[0];
+    }
+}
+
+window.addEventListener('load', function() {
+    if (typeof sessionStorage !== 'undefined') {
+        var cleanUrl = sessionStorage.getItem('cleanUrl');
+        if (cleanUrl) {
+            history.replaceState(null, null, cleanUrl);
+            sessionStorage.removeItem('cleanUrl');
+        }
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+document.getElementById(targetId).scrollIntoView({
+    behavior: 'smooth'
+});
+
 
 </script>
 </html>
